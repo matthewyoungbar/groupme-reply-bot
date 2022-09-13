@@ -11,7 +11,7 @@ app = Flask(__name__)
 @app.route('/', methods=['POST'])
 def webhook():
     data = request.get_json()
-
+    print(data)
     # We don't want to reply to ourselves!
     if data['name'] != 'groupme-reply-bot':
         msg = '{}, you sent "{}".'.format(data['name'], data['text'])
