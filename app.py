@@ -27,14 +27,15 @@ def send_message(msg, reply_id):
     url  = 'https://api.groupme.com/v3/bots/post'
 
     data = {
-          'bot_id' : os.getenv('GROUPME_BOT_ID'),
+          'bot_id' : 'ace37a9b6490274c052902a3d0',
           'text'   : msg,
           'attachments':
           {
-            "type": "reply",
-            "reply_id": reply_id,
-            "base_reply_id": reply_id
+            'type': 'reply',
+            'reply_id': reply_id,
+            'base_reply_id': reply_id
           }
          }
     request = Request(url, urlencode(data).encode())
+    print(request.text)
     json = urlopen(request).read().decode()
