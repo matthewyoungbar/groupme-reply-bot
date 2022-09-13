@@ -12,8 +12,8 @@ def webhook():
     data = request.get_json()
     print(data)
     # We don't want to reply to ourselves!
-    if data['name'] != 'groupme-reply-bot':
-        msg = '{}, you sent "{}".'.format(data['name'], data['text'])
+    if data['name'].lower().find('Matthew'):
+        msg = 'Dislike button'
         send_message(msg, data['id'])
 
     return "ok", 200
@@ -29,11 +29,13 @@ def send_message(msg, reply_id):
           'bot_id' : os.getenv('GROUPME_BOT_ID'),
           'text'   : msg,
           'attachments':
-          {
+          [{
             'type': 'reply',
             'reply_id': reply_id,
             'base_reply_id': reply_id
-          }
+          }]
          }
+
+    print(info)
 
     requests.post(url, data=json.dumps(info))
