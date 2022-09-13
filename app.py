@@ -1,8 +1,7 @@
 import os
 import json
 
-from urllib.parse import urlencode
-from urllib.request import Request, urlopen
+import requests
 
 from flask import Flask, request
 
@@ -26,8 +25,8 @@ def ping():
 def send_message(msg, reply_id):
     url  = 'https://api.groupme.com/v3/bots/post'
 
-    data = {
-          'bot_id' : 'ace37a9b6490274c052902a3d0',
+    info = {
+          'bot_id' : os.getenv('GROUPME_BOT_ID'),
           'text'   : msg,
           'attachments':
           {
@@ -36,6 +35,5 @@ def send_message(msg, reply_id):
             'base_reply_id': reply_id
           }
          }
-    request = Request(url, urlencode(data).encode())
-    print(request.text)
-    json = urlopen(request).read().decode()
+
+    requests.post(url, data=json.dumps(info))
