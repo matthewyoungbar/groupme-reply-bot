@@ -10,19 +10,23 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST'])
 def webhook():
-  data = request.get_json()
+    data = request.get_json()
 
-  # We don't want to reply to ourselves!
-  if data['name'] != 'groupme-reply-bot':
-    msg = '{}, you sent "{}".'.format(data['name'], data['text'])
-    send_message(msg, data['id'])
+    # We don't want to reply to ourselves!
+    if data['name'] != 'groupme-reply-bot':
+        msg = '{}, you sent "{}".'.format(data['name'], data['text'])
+        send_message(msg, data['id'])
 
-  return "ok", 200
+    return "ok", 200
+
+@app.route('/', methods=['GET'])
+def ping():
+    return "ok", 200
 
 def send_message(msg, reply_id):
-  url  = 'https://api.groupme.com/v3/bots/post'
+    url  = 'https://api.groupme.com/v3/bots/post'
 
-  data = {
+    data = {
           'bot_id' : os.getenv('GROUPME_BOT_ID'),
           'text'   : msg,
           'attachments':
@@ -32,5 +36,5 @@ def send_message(msg, reply_id):
             "base_reply_id": reply_id
           }
          }
-  request = Request(url, urlencode(data).encode())
-  json = urlopen(request).read().decode()
+    request = Request(url, urlencode(data).encode())
+    json = urlopen(request).read().decode()
