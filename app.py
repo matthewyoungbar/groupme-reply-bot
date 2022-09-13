@@ -12,7 +12,7 @@ def webhook():
     data = request.get_json()
     print(data)
     # We don't want to reply to ourselves!
-    if data['name'].lower().find('Matthew') != -1:
+    if 'matthew' in data['name'].lower():
         msg = 'Dislike button'
         send_message(msg, data['id'])
 
