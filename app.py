@@ -1,5 +1,6 @@
 import os
 import json
+import random
 
 import requests
 
@@ -12,8 +13,11 @@ def webhook():
     data = request.get_json()
     print(data)
     # We don't want to reply to ourselves!
-    if 'ayah' in data['name'].lower():
+    if random.random() < .05:
         msg = 'Dislike Button'
+        send_message(msg, data['id'])
+    elif 'anthony' in data['name'].lower() and random.random() < .5:
+        msg = 'When did I ask?'
         send_message(msg, data['id'])
 
     return "ok", 200
