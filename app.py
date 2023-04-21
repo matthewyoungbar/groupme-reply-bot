@@ -18,7 +18,7 @@ def webhook():
         send_message(msg, data['id'])
     elif 'andrew' in data['name'].lower() and random.random() < .5:
         msg = 'Hey whats up guys! Do you know any Lockheed positions open? '
-        if msg != data.get('message'):  # Check if msg is not equal to the message received
+        if msg != data.get('text'):  # Check if msg is not equal to the message received
             send_message(msg, data['id'])
 
     return "ok", 200
