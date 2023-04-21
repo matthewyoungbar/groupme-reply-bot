@@ -15,9 +15,10 @@ def webhook():
     # We don't want to reply to ourselves!
     if random.random() < .05:
         msg = 'Dislike Button'
+        if msg != data.get('message'):  # Check if msg is not equal to the message received
         send_message(msg, data['id'])
-    elif 'anthony' in data['name'].lower() and random.random() < .5:
-        msg = 'When did I ask?'
+    elif 'andrew' in data['name'].lower() and random.random() < .5:
+        msg = 'Hey whats up guys!'
         send_message(msg, data['id'])
 
     return "ok", 200
